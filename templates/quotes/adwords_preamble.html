@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="accounts">
+
+        <h2>
+			Welcome to Captivise
+		</h2>
+
+		<div class="account-ready">
+			<p>
+				Thank you for considering Captivise. There are 3 simple and easy steps to complete
+				before you can gain access to Captivise.
+			</p>
+
+			<div class="accordion">
+				<h3>Step 1. Conversion Tracking Checks</h3>
+
+				<div>
+					<p>
+						The next step in the process is for Captivise to connect to your account and check
+						that you have tracking in place. Captivise connects seamlessly to your AdWords and
+						Analytics to look for conversion tracking.
+					</p>
+					<p>
+						Once you've connected your account, the following page will show you which
+						conversion tracking methods have not been set up (if any) and provide instructions
+						on how to do so (if required).
+					</p>
+					<p>
+						If everything is working, you'll see 3 green ticks.
+					</p>
+				</div>
+
+				<h3>Step 2. Get an Instant Pricing Quote</h3>
+
+				<div>
+					<p>
+						Following the instant conversion tracking checks, Captivise will then analyse your
+						spend for the most recent 30 days and provide you with a quote for how much the
+						service would cost you if you spent the same again next month.
+					</p>
+				</div>
+
+				<h3>Step 3. Enter your Payment Details</h3>
+
+				<div>
+					<p>
+						If you are happy with your quote, click next and you will be asked for payment
+						details. If you have any questions about your quote, please feel free to send a
+						message via email or one of our customer support channels.
+					</p>
+					<p>
+						You won't be charged anything for the first 30 days if your fees are under £500
+						(i.e if your spend is under £10,000 for the most recent 30 days). Fees will be
+						charged at £500 intervals just as with Google AdWords, for example, you will be
+						charged £500 every time your account spend accrues a further £10,000 through the
+						system.
+					</p>
+				</div>
+
+				<h3>You are done and ready to use Captivise</h3>
+
+				<div>
+					<p>
+						Once the quick and easy 3 step process is completed, you'll be up and running and
+						ready to go. All you'll need to do is to select the campaigns that you wish to run
+						Captivise on, decide whether to input margin percentage or target
+						cost-per-conversion and then click 'go'.
+					</p>
+				</div>
+			</div>
+
+			<p>
+				You'll need to make sure your Adwords account is a manager account in order to use Captivise.
+				If you don't have another choice, and/or don't know
+                what a manager account is, please refer to
+                <a href="https://support.google.com/adwords/answer/6139186?hl=en-GB">this</a>
+                Google help article, for instructions on how to set one
+                up.
+			</p>
+
+            <form class="agree" method="POST">
+                {% csrf_token %}
+                {{ form.terms_and_conditions_accepted.errors }}
+                {{ form.terms_and_conditions_accepted }}
+                <label for="{{ form.terms_and_conditions_accepted.id_for_label }}">
+                    I agree to Captivise
+                    <a href="{% url 'website_terms_and_conditions' %}">Terms &amp; Conditions</a>
+                </label>
+
+    			<button class="btn single" type="submit">Check My Adwords Account</button>
+            </form>
+        </div>
+
+	</div>
+{% endblock content %}

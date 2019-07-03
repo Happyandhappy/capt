@@ -1,0 +1,101 @@
+{% extends "authenticated.html" %}
+
+{% block content %}
+    <div class="accounts">
+
+        <div class="account-details">
+
+            <h2>Your AdWords Account</h2>
+
+            {% if not has_adwords_account %}
+                <div>
+                    <a class="btn" href="{% url 'accounts_oauth_redirect' %}">Add AdWords Account</a>
+                </div>
+            {% else %}
+                <div>
+                    <form method="post" action="{% url 'accounts_oauth_remove' %}">
+                        {% csrf_token %}
+
+                        <dl>
+                            <dt>AdWords Account</dt>
+                            <dd>{{ adwords_account.descriptiveName }}</dd>
+                            <dt>ID</dt>
+                            <dd>{{ adwords_account.customerId }}</dd>
+                        </dl>
+
+                        <button type="submit" class="btn">Remove AdWords Account</button>
+                    </form>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="account-details">
+            <h2>Your Payment Details</h2>
+
+            {% if not has_payment_details %}
+                <div>
+                    <a class="btn" href="{% url 'quoting_proceed_to_payment_gateway' %}">
+                        Add Payment Details
+                    </a>
+                </div>
+            {% else %}
+                <div>
+                    <dl>
+                        <dt>Card Number Mask</dt>
+                        <dd>{{ card_number_mask }}</dd>
+                        <dt>Card Expiry Date (mm/yy)</dt>
+                        <dd>{{ card_expiry }}</dd>
+                        <dt>Card Type</dt>
+                        <dd>{{ card_type }}</dd>
+                    </dl>
+
+                    <a class="btn" href="{% url 'quoting_proceed_to_payment_gateway' %}">
+                        Update Payment Details
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="account-details">
+
+            <h2>Your Captivise Account</h2>
+
+            <div>
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        {% for err in form.non_field_errors %}
+                          <p>{{ err }}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+                    {% for field in form.visible_fields %}
+                        <div class="field-wrapper {% if field.errors %}errors{% endif %}">
+                            {{ field.errors }}
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+
+                    <a href="{% url 'reports_dashboard' %}" class="btn">Cancel Changes</a>
+                    <button type="submit" class="btn">Save Changes</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+      $('#id_new_password').hideShowPassword(false, true);
+    });
+</script>
+{% endblock extra_js %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="accounts">
+        <h2>Card Verification Failed</h2>
+
+        <p>
+            The payment gateway was unable to verify your payment details.  A valid card is required to use Captivise.
+        </p>
+
+        <p>
+            Please try again.
+        </p>
+
+        <div class="btn-container">
+            <a href="{% url 'quoting_proceed_to_payment_gateway' %}" class="btn">Re-enter Payment Details</a>
+        </div>
+
+        {% if old_payment_reinstated %}
+            <p class="old-payment-reinstated">
+                Your previous verification has been reinstated.
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

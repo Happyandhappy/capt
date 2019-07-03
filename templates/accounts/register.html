@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="accounts">
+        <h2>Signup to Captivise</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+			{% include 'form_fields.html' %}
+
+            <button class="btn single">Get Started</button>
+        </form>
+    </div>
+{% endblock content %}

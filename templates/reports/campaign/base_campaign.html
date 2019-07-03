@@ -1,0 +1,31 @@
+{% extends "authenticated.html" %}
+
+{% block content %}
+
+    <div>
+        <h2>
+            {{ campaign.title }}
+            <small>
+                ({% if not campaign.is_managed %}Not{% endif %} Managed By Captivise)
+            </small>
+            <span>
+                Conversion Mode:
+                {% if campaign.conversion_type == 'cpa' %}
+                    <span>CPA</span>
+                {% elif campaign.conversion_type == 'conversion_margin' %}
+                    <span>Margins</span>
+                {% else %}
+                    <span>Unknown</span>
+                {% endif %}
+            </span>
+        </h2>
+
+        <ul class="hud-tabs">
+            <li><a class="{% if active_menu.campaign_overview %}active{% endif %}" href="{% url 'reports_campaign_detail' campaign.id %}">Campaign Overview</a></li>
+            <li><a class="{% if active_menu.campaign_settings %}active{% endif %}" href="{% url 'reports_campaign_detail_settings' campaign.id %}">Settings</a></li>
+        </ul>
+    </div>
+
+    {% block campaign_content %}{% endblock campaign_content %}
+
+{% endblock content %}

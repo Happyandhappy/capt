@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="accounts">
+        <h2>Step 1. Conversion Tracking Checks</h2>
+
+        <p class="intro">
+			Captivise has checked your account for the presence of conversion tracking and found
+			the following results:
+		</p>
+
+		<ul class="results">
+			{% for compatibility_check in compatibility_checks %}
+				<li>
+					<span class="{% if compatibility_check.passed %}set-up{% endif %}"></span>
+					<p>{{ compatibility_check.label }}</p>
+				</li>
+			{% endfor %}
+		</ul>
+
+        <a class="btn single" href="{% url 'quoting_view_quote' %}">Show Me My Quote</a>
+
+	</div>
+{% endblock content %}

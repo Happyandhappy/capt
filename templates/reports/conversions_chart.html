@@ -1,0 +1,25 @@
+<form class="js-date-range date-picker" method="GET">
+    {{ date_range_form.non_field_errors }}
+    <label for="{{ date_range_form.date_from.id_for_label }}">From:</label>
+    {{ date_range_form.date_from }}
+    <label for="{{ date_range_form.date_to.id_for_label }}">To:</label>
+    {{ date_range_form.date_to }}
+
+    <span class="or">or</span>
+
+    <select name="chart_range" autocomplete="off" class="js-date-range-selector">
+      <option {% if chart_range == 'last30Days' %}selected="selected"{% endif %} value="last30Days">Last 30 days</option>
+      <option {% if chart_range == 'thisWeek' %}selected="selected"{% endif %} value="thisWeek">This week</option>
+      <option {% if chart_range == 'lastWeek' %}selected="selected"{% endif %} value="lastWeek">Last week</option>
+      <option {% if chart_range == 'thisMonth' %}selected="selected"{% endif %} value="thisMonth">This month</option>
+      <option {% if chart_range == 'lastMonth' %}selected="selected"{% endif %} value="lastMonth">Last month</option>
+      <option {% if chart_range == 'thisYear' %}selected="selected"{% endif %} value="thisYear">This year</option>
+      <option {% if chart_range == 'lastYear' %}selected="selected"{% endif %} value="lastYear">Last year</option>
+      <option {% if chart_range == 'allTime' %}selected="selected"{% endif %} value="allTime">All time</option>
+    </select>
+    <button type="submit" title="Refresh">Show</button>
+</form>
+<div class="js-chart" id="chart"></div>
+<script>
+    chart.metrics = JSON.parse('{{ metrics|safe }}');
+</script>

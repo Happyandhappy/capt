@@ -1,0 +1,72 @@
+{% extends "authenticated.html" %}
+
+{% block content %}
+
+    <h2>Dashboard</h2>
+
+    <div class="graph-and-picker">
+        <h3>Conversion Graph</h3>
+        <div class="dashboard_chart">
+
+            {% if has_adwords_account %}
+                {% include 'reports/conversions_chart.html' with metrics=metrics date_range_form=date_range_form %}
+            {% else %}
+                {% include 'reports/no_linked_adwords_account.html' %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="dashboard_hud">
+        <h3>Keywords</h3>
+
+        <ul class="hud-tabs">
+            <li><a class="{% if active_menu.dashboard_today %}active{% endif %}" href="{% url 'reports_dashboard' %}?range=today">Today</a></li>
+            <li><a class="{% if active_menu.dashboard_week %}active{% endif %}" href="{% url 'reports_dashboard' %}?range=week">Week</a></li>
+            <li><a class="{% if active_menu.dashboard_month %}active{% endif %}" href="{% url 'reports_dashboard' %}?range=month">Month</a></li>
+        </ul>
+
+        <ul class="vital_stats">
+            <li class="decreased_bid_count">
+                <p class="count">
+                    {% if decreased_bid_count %}
+                        {{ decreased_bid_count }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </p>
+                <p class="message">Decreased Bids</p>
+            </li>
+            <li class="increased_bid_count">
+                <p class="count">
+                    {% if increased_bid_count %}
+                        {{ increased_bid_count }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </p>
+                <p class="message">Increased Bids</p>
+            </li>
+            <li class="unchanged_bid_count">
+                <p class="count">
+                    {% if unchanged_bid_count %}
+                        {{ unchanged_bid_count }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </p>
+                <p class="message">Unchanged Bids</p>
+            </li>
+            <li class="paused_keywords_count">
+                <p class="count">
+                    {% if paused_keywords_count %}
+                        {{ paused_keywords_count }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </p>
+                <p class="message">Paused Keywords</p>
+            </li>
+        </ul>
+    </div>
+
+{% endblock content %}

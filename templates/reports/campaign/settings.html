@@ -1,0 +1,68 @@
+{% extends "reports/campaign/base_campaign.html" %}
+
+{% block campaign_content %}
+
+    <div class="accounts">
+
+        <div class="account-details">
+
+            <form method="post">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for err in form.non_field_errors %}
+                      <p>{{ err }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    {% if forloop.counter == 2 %}<div class="js-form-remainder">{% endif %}
+                        <div class="field-wrapper{% if field.errors %} errors{% endif %}{% if field.id_for_label == 'id_target_cpa' %} left{% endif %}{% if field.id_for_label == 'id_target_conversion_margin' %} right{% endif %}">
+                            {% if field.id_for_label == 'id_is_managed' %}
+                                {{ field.errors }}
+                                {{ field }}
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {% else %}
+                                {{ field.errors }}
+                                <label for="{{ field.id_for_label }}">
+                                    {{ field.label }}
+
+                                    {% if field.help_text %}
+                                        <small>{{ field.help_text }}</small>
+                                    {% endif %}
+                                </label>
+
+                                {{ field }}
+                            {% endif %}
+                        </div>
+                {% endfor %}
+                {% if form.visible_fields|length >= 2 %}
+                </div>
+                {% endif %}
+
+                <p class="bid-explainer">
+                    Please note: A keyword bid will only be changed if an
+                    individual keyword has 3 or more conversions, otherwise the
+                    average conversion rate across the campaign will be used.
+                </p>
+
+                <div class="buttons">
+                    <a href="{% url 'reports_campaign_detail' campaign.id %}" class="btn">Cancel</a>
+                    <button type="submit" class="btn">Save</button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+{% endblock campaign_content %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {{ form.media.js }}
+{% endblock %}

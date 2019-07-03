@@ -1,0 +1,22 @@
+{% extends "authenticated.html" %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+
+    <h2>Campaigns</h2>
+
+    <ul class="campaign-list_switcher">
+        <li><a class="{% if active_menu.campaigns_filter_all %}active{% endif %}" href="{% url 'reports_campaign_list' %}">All</a></li>
+        <li><a class="{% if active_menu.campaigns_filter_managed %}active{% endif %}" href="{% url 'reports_campaign_list' %}?filter=managed">Managed</a></li>
+        <li><a class="{% if active_menu.campaigns_filter_unmanaged %}active{% endif %}" href="{% url 'reports_campaign_list' %}?filter=unmanaged">Unmanaged</a></li>
+    </ul>
+
+    {% if has_adwords_account %}
+        <div>
+            {% render_table campaigns %}
+        </div>
+    {% else %}
+        {% include 'reports/no_linked_adwords_account.html' %}
+    {% endif %}
+
+{% endblock content %}

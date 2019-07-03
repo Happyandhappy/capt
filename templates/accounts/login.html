@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="accounts">
+        <h2>Login</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+			{% include 'form_fields.html' %}
+
+            <button type="submit" class="btn single">Login</button>
+        </form>
+
+        <a href="{% url 'accounts_register' %}">Register</a>
+
+        <a href="{% url 'accounts_password_reset' %}">Forgotten Password</a>
+
+    </div>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+      $('#id_password').hideShowPassword(false, true);
+    });
+</script>
+{% endblock extra_js %}

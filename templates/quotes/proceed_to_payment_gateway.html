@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="accounts">
+        <h2>Step 3. Enter your Payment Details</h2>
+
+        <p>
+            On the next page you will be required to enter your payment details. You will be
+			redirected to the secure payment gateway, which will verify your card details, and
+			allow billing in future.
+		</p>
+		<p>
+			You will not be charged at this point, nor at any point in the first 30 days if your
+			calculated fees are under £500 (i.e if your spend is under £10,000 for the most recent
+			30days). Fees will be charged at £500 intervals just as with Google AdWords, for
+			example,you will be charged £500 every time your account spend accrues a further
+			£10,000 through the system.
+        </p>
+
+        <form method="{{ form.form_method }}" action="{{ form.form_action }}">
+            {{ form }}
+            <button type="submit" class="btn">Proceed to Payment Gateway</button>
+        </form>
+    </div>
+{% endblock %}

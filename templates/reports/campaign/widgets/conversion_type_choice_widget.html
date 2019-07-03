@@ -1,0 +1,34 @@
+<div class="conversion-type {{ widget.attrs.id }}">
+
+    <div class="inner">
+
+        <label{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
+
+            {% if wrap_label %}
+                {% include "django/forms/widgets/input.html" %}
+            {% endif %}
+
+            <span></span><div class="conv-title">{{ widget.label }}</div>
+            {% if widget.value == 'cpa' %}
+                <p>
+                    Simply select the amount that you want to pay
+                    per lead and Captivise will optimise each
+                    keyword bid to select the optimal amount based
+                    upon the conversion rate of the keyword.
+                </p>
+            {% elif widget.value == 'conversion_margin' %}
+                <p>
+                    If your lead values are tracked, either by goal
+                    value or ecommerce revenue and your lead
+                    amounts are variable, then select this option
+                    and Captivise will optimise bids according to
+                    the value of the conversion.
+                </p>
+            {% endif %}
+        </label>
+
+        {% if not wrap_label %}
+            {% include "django/forms/widgets/input.html" %}
+        {% endif %}
+    </div>
+</div>
