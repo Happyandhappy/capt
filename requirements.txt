@@ -1,6 +1,6 @@
 # Keep this file in alphabetical order.  No logical grouping of blocks.
 
-Django==2.2.24
+Django==2.2.27
 celery==4.0.2
 django-compressor==2.1.1
 django-jsonfield==1.0.1
